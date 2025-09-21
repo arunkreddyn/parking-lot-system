@@ -19,5 +19,6 @@ public class ParkingLot {
     private String name; // Lot name
 
     @OneToMany(mappedBy = "parkingLot", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<ParkingSlot> slots; // Slots in this lot
 }

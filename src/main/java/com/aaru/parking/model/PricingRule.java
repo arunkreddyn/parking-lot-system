@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "pricing_rule", uniqueConstraints = @UniqueConstraint(columnNames = "vehicleType"))
 public class PricingRule {
 
     @Id

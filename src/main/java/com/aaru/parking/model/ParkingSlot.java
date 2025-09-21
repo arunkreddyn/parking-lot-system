@@ -22,10 +22,12 @@ public class ParkingSlot {
 
     private int floor; // floor number for ordering
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parking_lot_id")
+    @ToString.Exclude
     private ParkingLot parkingLot;
 
-    @OneToOne(mappedBy = "slot")
+    @OneToOne(mappedBy = "slot",cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Ticket ticket;
 }

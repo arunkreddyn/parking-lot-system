@@ -16,23 +16,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('ADMIN')") // all endpoints restricted to ADMIN
 public class AdminController {
 
     private final AdminService adminService;
     private final PricingService pricingService;
 
-    /**
-     * Add a new parking lot
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/lots")
     public ResponseEntity<ParkingLot> addLot(@RequestBody ParkingLot lot) {
         return ResponseEntity.ok(adminService.addParkingLot(lot));
     }
 
-    /**
-     * Add a slot inside a parking lot
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/lots/{lotId}/slots")
     public ResponseEntity<ParkingSlot> addSlot(@PathVariable Long lotId,
                                                @RequestParam VehicleType type,
@@ -40,26 +35,20 @@ public class AdminController {
         return ResponseEntity.ok(adminService.addParkingSlot(lotId, type, floor));
     }
 
-    /**
-     * Remove a slot by ID
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/slots/{slotId}")
     public ResponseEntity<Void> removeSlot(@PathVariable Long slotId) {
         adminService.removeParkingSlot(slotId);
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * Add or update pricing rule
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/pricing")
     public ResponseEntity<PricingRule> addPricing(@RequestBody PricingRule rule) {
         return ResponseEntity.ok(pricingService.addOrUpdatePricingRule(rule));
     }
 
-    /**
-     * Get all parking lots
-     */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/lots")
     public ResponseEntity<List<ParkingLot>> getAllLots() {
         return ResponseEntity.ok(adminService.getAllLots());

@@ -22,5 +22,6 @@ public class Vehicle {
     private String ownerEmail;
 
     @OneToOne(mappedBy = "vehicle")
+    @ToString.Exclude
     private Ticket ticket;
 }

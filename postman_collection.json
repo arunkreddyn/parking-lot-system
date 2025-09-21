@@ -1,167 +1,132 @@
 {
   "info": {
     "name": "Parking Lot System API",
-    "_postman_id": "b2f6e50a-1234-5678-9012-abcdef123456",
-    "description": "Postman collection for AdminController and UserParkingController demo",
+    "_postman_id": "parking-lot-system",
+    "description": "Postman collection for Parking Lot System (User & Admin endpoints, JWT Bearer token required)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Admin - Add Parking Lot",
+      "name": "Admin: Add Parking Lot",
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
           { "key": "Content-Type", "value": "application/json" }
         ],
-        "url": { "raw": "{{BASE_URL}}/api/admin/lots", "host": ["{{BASE_URL}}"], "path": ["api","admin","lots"] },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"name\": \"Central Lot\"\n}"
-        }
-      },
-      "response": []
+          "raw": "{\n  \"name\": \"Central Parking\",\n  \"location\": \"Downtown\"\n}"
+        },
+        "url": { "raw": "http://localhost:8080/api/admin/lots", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","admin","lots"] }
+      }
     },
     {
-      "name": "Admin - Add Parking Slot",
+      "name": "Admin: Add Slot",
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
-          "raw": "{{BASE_URL}}/api/admin/lots/1/slots?type=CAR&floor=1",
-          "host": ["{{BASE_URL}}"],
+          "raw": "http://localhost:8080/api/admin/lots/1/slots?type=CAR&floor=1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
           "path": ["api","admin","lots","1","slots"],
           "query": [
             { "key": "type", "value": "CAR" },
             { "key": "floor", "value": "1" }
           ]
         }
-      },
-      "response": []
+      }
     },
     {
-      "name": "Admin - Remove Parking Slot",
+      "name": "Admin: Remove Slot",
       "request": {
         "method": "DELETE",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
-        "url": {
-          "raw": "{{BASE_URL}}/api/admin/slots/1",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api","admin","slots","1"]
-        }
-      },
-      "response": []
+        "url": { "raw": "http://localhost:8080/api/admin/slots/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","admin","slots","1"] }
+      }
     },
     {
-      "name": "Admin - Add Pricing Rule",
+      "name": "Admin: Add Pricing Rule",
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
           { "key": "Content-Type", "value": "application/json" }
         ],
-        "url": { "raw": "{{BASE_URL}}/api/admin/pricing", "host": ["{{BASE_URL}}"], "path": ["api","admin","pricing"] },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"vehicleType\": \"CAR\",\n  \"pricePerHour\": 10.0\n}"
-        }
-      },
-      "response": []
+          "raw": "{\n  \"vehicleType\": \"CAR\",\n  \"hourlyRate\": 50\n}"
+        },
+        "url": { "raw": "http://localhost:8080/api/admin/pricing", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","admin","pricing"] }
+      }
     },
     {
-      "name": "Admin - Get All Lots",
+      "name": "Admin: Get All Parking Lots",
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
-        "url": { "raw": "{{BASE_URL}}/api/admin/lots", "host": ["{{BASE_URL}}"], "path": ["api","admin","lots"] }
-      },
-      "response": []
+        "url": { "raw": "http://localhost:8080/api/admin/lots", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","admin","lots"] }
+      }
     },
     {
-      "name": "User - Park Vehicle (Entry)",
+      "name": "User: Park Vehicle (Entry)",
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" },
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
           { "key": "Content-Type", "value": "application/json" }
         ],
-        "url": { "raw": "{{BASE_URL}}/api/user/entry", "host": ["{{BASE_URL}}"], "path": ["api","user","entry"] },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"plateNo\": \"KA01AB1234\",\n  \"type\": \"CAR\",\n  \"ownerEmail\": \"user@example.com\",\n  \"lotId\": 1\n}"
-        }
-      },
-      "response": []
+        },
+        "url": { "raw": "http://localhost:8080/api/user/entry", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","user","entry"] }
+      }
     },
     {
-      "name": "User - Retrieve Vehicle (Exit)",
+      "name": "User: Retrieve Vehicle (Exit)",
       "request": {
         "method": "POST",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
-        "url": {
-          "raw": "{{BASE_URL}}/api/user/exit/1",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api","user","exit","1"]
-        }
-      },
-      "response": []
+        "url": { "raw": "http://localhost:8080/api/user/exit/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","user","exit","1"] }
+      }
     },
     {
-      "name": "User - Get Active Ticket",
+      "name": "User: Get Active Ticket",
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
-        "url": {
-          "raw": "{{BASE_URL}}/api/user/tickets/KA01AB1234",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api","user","tickets","KA01AB1234"]
-        }
-      },
-      "response": []
+        "url": { "raw": "http://localhost:8080/api/user/tickets/KA01AB1234", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","user","tickets","KA01AB1234"] }
+      }
     },
     {
-      "name": "User - Get Payment Receipt",
+      "name": "User: Get Payment Receipt",
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Authorization", "value": "Bearer {{USER_TOKEN}}" }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
-        "url": {
-          "raw": "{{BASE_URL}}/api/user/payments/1",
-          "host": ["{{BASE_URL}}"],
-          "path": ["api","user","payments","1"]
-        }
-      },
-      "response": []
+        "url": { "raw": "http://localhost:8080/api/user/payments/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","user","payments","1"] }
+      }
     }
   ],
-  "auth": {
-    "type": "oauth2",
-    "oauth2": [
-      { "key": "grant_type", "value": "authorization_code", "type": "string" },
-      { "key": "callback_url", "value": "http://localhost:8080/login/oauth2/code/google", "type": "string" },
-      { "key": "auth_url", "value": "https://accounts.google.com/o/oauth2/v2/auth", "type": "string" },
-      { "key": "access_token_url", "value": "https://oauth2.googleapis.com/token", "type": "string" },
-      { "key": "client_id", "value": "{{client_id}}", "type": "string" },
-      { "key": "client_secret", "value": "{{client_secret}}", "type": "string" },
-      { "key": "scope", "value": "openid profile email", "type": "string" }
-    ]
-  },
   "variable": [
-    { "key": "BASE_URL", "value": "http://localhost:8080" },
-    { "key": "ADMIN_TOKEN", "value": "" },
-    { "key": "USER_TOKEN", "value": "" },
-    { "key": "client_id", "value": "" },
-    { "key": "client_secret", "value": "" }
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    }
   ]
 }

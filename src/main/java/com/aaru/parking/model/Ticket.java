@@ -23,14 +23,17 @@ public class Ticket {
     private LocalDateTime entryTime;
     private LocalDateTime exitTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "slot_id")
+    @ToString.Exclude
     private ParkingSlot slot;
 
     @OneToOne
     @JoinColumn(name = "vehicle_id")
+    @ToString.Exclude
     private Vehicle vehicle;
 
-    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Payment payment;
 }

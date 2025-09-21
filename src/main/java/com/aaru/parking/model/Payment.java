@@ -27,5 +27,6 @@ public class Payment {
 
     @OneToOne
     @JoinColumn(name = "ticket_id")
+    @ToString.Exclude
     private Ticket ticket;
 }
